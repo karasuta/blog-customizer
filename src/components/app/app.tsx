@@ -13,17 +13,6 @@ import styles from './app.module.scss';
 export const App = () => {
 	const [pageState, setPageState] =
 		useState<ArticleStateType>(defaultArticleState);
-	const [draftState, setDraftState] =
-		useState<ArticleStateType>(defaultArticleState);
-	const handleFormChange = (update: Partial<ArticleStateType>) => {
-		setDraftState((prev) => ({ ...prev, ...update }));
-	};
-	const handleApply = () => {
-		setPageState(draftState);
-	};
-	const handleReset = () => {
-		setDraftState(defaultArticleState);
-	};
 
 	return (
 		<main
@@ -38,10 +27,8 @@ export const App = () => {
 				} as CSSProperties
 			}>
 			<ArticleParamsForm
-				state={draftState}
-				onUpdate={handleFormChange}
-				onApply={handleApply}
-				onReset={handleReset}
+				state={pageState}
+				onApply={(newState) => setPageState(newState)}
 			/>
 			<Article />
 		</main>
